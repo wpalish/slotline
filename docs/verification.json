@@ -4,7 +4,7 @@
   "runtime": "Node 24.19.0",
   "tests": {
     "slug": "slotline",
-    "tests": 4,
+    "tests": 7,
     "pass": true,
     "runtime": "v24.19.0"
   },
@@ -36,5 +36,10 @@
     "slug": "slotline",
     "query": "Учебная консультация",
     "result": "visible_label_and_no_results_recovery_passed"
+  },
+  "followup": {
+    "date": "2026-10-24",
+    "change": "Archive lifecycle preserves cancelled/elapsed history and prevents newly hiding active intervals",
+    "evidence": "docs/archival-verification.json"
   }
 }

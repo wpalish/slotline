@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-24",
+  "product": "slotline",
+  "original_defects": [
+    "Cancelled appointment history blocked staff/service archival",
+    "A future active booking could be archived and disappear from the default list while still reserving time"
+  ],
+  "before_fix": "Two focused regressions failed: resource archival threw active-resource error; active-booking archive missed expected rejection.",
+  "policy": "Active booked interval is future/ongoing until its computed end including buffer, according to server clock. New archival forbidden until cancellation or elapsed interval. Cancelled/elapsed history may retain archived resources without altering start/end/status. Old archived future bookings retained and still checked for conflicts.",
+  "tests": {
+    "passed": 7,
+    "failed": 0,
+    "runtime": "v24.19.0",
+    "log": "docs/test-output.txt",
+    "regression": "tests/archival.test.js",
+    "covered": [
+      "cancelled history permits resource archival",
+      "future active booking and resources reject archival without state/revision/audit change",
+      "elapsed booked history can archive without invented cancellation or attendance",
+      "file restart and validated restore preserve records and computed end",
+      "archived resources cannot be used to revive/new-book a future active interval",
+      "legacy archived future booking remains readable and reserves its interval without blocking unrelated updates",
+      "original buffer overlap and adjacent-interval scenario remains tested"
+    ]
+  },
+  "browser": {
+    "data": "synthetic only on separate localhost8823",
+    "initial_records": "seeded through authenticated local API",
+    "future_archive_rejection": {
+      "all_saved_data_unchanged": true,
+      "revision": 10,
+      "audit_events": 10
+    },
+    "cancelled_history": {
+      "cancelled_booking_preserved": true,
+      "original_start_and_end_unchanged": true,
+      "service_archived": true,
+      "staff_archived": true,
+      "booking_archived": false,
+      "revision": 6,
+      "audit_events": 6,
+      "start": "2099-10-25T10:00:00+05:00",
+      "end": "2099-10-25T06:15:00.000Z"
+    },
+    "elapsed_history": {
+      "past_status_preserved": "booked",
+      "past_archived": true,
+      "past_start_and_end_unchanged": true,
+      "past_start": "2000-10-25T10:00:00+05:00",
+      "past_end": "2000-10-25T06:15:00.000Z",
+      "future_status": "cancelled",
+      "staff_archived": true,
+      "service_archived": true,
+      "revision": 14,
+      "audit_events": 14
+    },
+    "reload": "Show archive reveals past interval with original booked status and11:15+05 end; cancelled future interval visible",
+    "screens": [
+      "docs/active-archive-rejected.jpg",
+      "docs/archived-history.jpg"
+    ]
+  },
+  "limits": [
+    "No attendance claim from elapsed time",
+    "Server clock must be correct",
+    "No calendar synchronization, payments, notifications or new public hosting",
+    "Domain validation/error wording only; UI shell and DB schema unchanged; not a whole-surface/security audit"
+  ]
+}

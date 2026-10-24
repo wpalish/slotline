@@ -51,18 +51,24 @@ const definition = {
   validate(state, before, command, actor) {
     unique(live(state, "staff"), "name", "Сотрудник");
     for (const b of rows(state, "bookings")) {
-      required(
-        !byId(state, "staff", b.staff).archived &&
-          !byId(state, "services", b.service).archived,
-        "Нужны действующие услуга и сотрудник.",
-      );
+      const service = byId(state, "services", b.service),
+        staff = byId(state, "staff", b.staff);
+      if (b.status === "booked" && Date.parse(b.end) > Date.now()) {
+        const previous = changed(before, "bookings", b.id);
+        required(
+          !b.archived || previous?.archived,
+          "Сначала отмените запись или дождитесь окончания интервала перед архивированием.",
+        );
+        required(
+          !staff.archived && !service.archived,
+          "Для активной записи нужны действующие услуга и сотрудник.",
+        );
+      }
       required(
         b.end ===
           new Date(
             Date.parse(b.start) +
-              (byId(state, "services", b.service).minutes +
-                byId(state, "services", b.service).buffer) *
-                60000,
+              (service.minutes + service.buffer) * 60000,
           ).toISOString(),
         "Изменение длительности затрагивает сохранённые записи. Создайте новую услугу.",
       );

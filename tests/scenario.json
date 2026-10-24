@@ -1,0 +1,49 @@
+[
+  {
+    "collection": "services",
+    "as": "s",
+    "data": {
+      "name": "Учебная консультация",
+      "minutes": 60,
+      "buffer": 15
+    }
+  },
+  {
+    "collection": "staff",
+    "as": "e",
+    "data": {
+      "name": "Учебный сотрудник"
+    }
+  },
+  {
+    "collection": "bookings",
+    "data": {
+      "service": "$s",
+      "staff": "$e",
+      "visitor": "TEST-A",
+      "start": "2099-10-25T10:00:00+05:00",
+      "status": "booked"
+    }
+  },
+  {
+    "collection": "bookings",
+    "error": "пересекается",
+    "data": {
+      "service": "$s",
+      "staff": "$e",
+      "visitor": "TEST-B",
+      "start": "2099-10-25T11:00:00+05:00",
+      "status": "booked"
+    }
+  },
+  {
+    "collection": "bookings",
+    "data": {
+      "service": "$s",
+      "staff": "$e",
+      "visitor": "TEST-C",
+      "start": "2099-10-25T11:15:00+05:00",
+      "status": "booked"
+    }
+  }
+]

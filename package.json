@@ -1,0 +1,14 @@
+{
+  "name": "slotline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Расписание услуг сотрудников с вычислением окончания и запретом пересечений, включая буфер.",
+  "engines": {
+    "node": ">=24.15 <25"
+  },
+  "scripts": {
+    "start": "node start.js",
+    "test": "node --test tests/*.test.js"
+  }
+}

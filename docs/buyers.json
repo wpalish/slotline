@@ -57,11 +57,14 @@
       "checked_at": "2026-10-24",
       "fit_is_hypothesis": true,
       "interest_confirmed": false,
-      "outreach_sent": false,
+      "outreach_sent": true,
       "priority": "A: проверить конкретный процесс",
       "product_scenario": "Администратор задаёт длительность услуги и буфер сотрудника; при записи сервер вычисляет конец и проверяет пересечение вместе с буфером.",
       "qualification": "Соответствие — наша гипотеза по открытым сведениям, потребность не подтверждена.",
-      "limitations": "Нет WhatsApp, SMS, платежей и синхронизации внешних календарей."
+      "limitations": "Нет WhatsApp, SMS, платежей и синхронизации внешних календарей.",
+      "outreach_status": "sent_verified",
+      "outreach_date": "2026-10-24",
+      "reply_received": false
     },
     {
       "id": 1,
